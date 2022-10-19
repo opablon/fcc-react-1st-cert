@@ -1,2 +1,4 @@
-# fcc-react-1st-cert
-Random Quote Machine
+# Free Code Camp Front End Development Libraries
+### Projects - Random Quote Machine
+
+Lord of The Rings Random Quote Machine using LOTR Random Quote API
