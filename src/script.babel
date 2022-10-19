@@ -1,0 +1,51 @@
+// https://the-one-api.dev/
+// https://lotr-random-quote-api.herokuapp.com/api/quote
+
+const { useState, useEffect } = React;
+
+function App() {
+  
+  const [isLoading, setIsLoading] = useState(true);
+  const [quoteData, setQuoteData] = useState(null);
+  
+  useEffect(() => {
+    if (isLoading) {
+      fetch(`https://lotr-random-quote-api.herokuapp.com/api/quote`)
+        .then((response) => response.json())
+        .then((json) => {
+          setQuoteData(json);
+          setIsLoading(false);
+        });
+    }
+  }, [isLoading]);
+  
+  const randomQuote = () => {
+    setIsLoading(true);
+  }
+  
+  if (isLoading) {
+    return (
+      <div id="loading">
+        <h2>Loading...</h2>
+      </div>
+    )
+  }
+  
+  let quoteTextTweet = quoteData.quote;
+  let quoteAuthorTweet = quoteData.author;
+  let tweetHref = 'https://twitter.com/intent/tweet?text=' + '"' + quoteTextTweet + '" ' + quoteAuthorTweet;
+  
+  return (
+      <div id="quote-box">
+        <h1 id="text">"{quoteData.quote}"</h1>
+        <h3 id="author">{quoteData.author}</h3>
+        <button id="new-quote" onClick={randomQuote}>New quote</button>
+        <a class="twitter-share-button" id='tweet-quote' href={tweetHref} target="_top">Tweet quote</a>
+      </div>
+    );
+  
+}
+
+const root = document.getElementById('root');
+
+ReactDOM.render(<App />, root);
